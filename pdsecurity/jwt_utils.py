@@ -1,8 +1,7 @@
 import datetime
 import functools
 
-from werkzeug.wrappers import Request
-from werkzeug.exceptions import abort
+import flask
 import jwt
 
 from pdsecurity_config import pdsecurity_config
@@ -19,8 +18,8 @@ def protect_with_jwt(f):
 
     @functools.wraps(f)
     def wrapper(*args, **kwargs):
-        if not check_jwt_filter(Request):
-            abort(401)
+        if not check_jwt_filter(flask.request):
+            flask.abort(401)
 
         return f(*args, **kwargs)
 
