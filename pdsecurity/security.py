@@ -66,7 +66,6 @@ class JwtBcryptAuthenticator(JwtAuthenticator, BcryptAuthenticator):
         pass
 
     def generate_security_token(self, user_id=None, name=None, role='User'):
-        print("Generating security token for user " + name + " with id " + str(user_id))
         return self.generate_jwt_token(user_id, name, role)
 
 

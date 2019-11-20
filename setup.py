@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pdsecurity",
-    version="0.0.2",
+    version="0.0.3",
     author="Andrew J. Pickett",
     author_email="picketta@gmail.com",
     description="Simple package containing basic security classes/code for bcrypt and JWT auth",

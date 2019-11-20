@@ -34,8 +34,8 @@ def check_jwt_filter(request):
     :return: True if the request has a valid JWT token, False otherwise.
     """
     try:
-        auth_token = _get_jwt_token_from_request(request)
-        auth_request = _parse_jwt_token(auth_token)
+        auth_token = get_jwt_token_from_request(request)
+        auth_request = parse_jwt_token(auth_token)
 
         if auth_request and auth_request["iss"] == pdsecurity_config['jwt']['issuer'] and datetime.datetime.now() < datetime.datetime.fromtimestamp(auth_request["exp"]):
             # TODO: Save auth to some context? or at least just allow them in.
@@ -49,10 +49,10 @@ def check_jwt_filter(request):
 
 
 def get_jwt_object_from_request(request):
-    return _parse_jwt_token(_get_jwt_token_from_request(request))
+    return parse_jwt_token(get_jwt_token_from_request(request))
 
 
-def _get_jwt_token_from_request(request):
+def get_jwt_token_from_request(request):
     header = request.headers["Authorization"]
     if header.startswith('Bearer '):
         return header.replace('Bearer ', '')
@@ -60,7 +60,7 @@ def _get_jwt_token_from_request(request):
         raise KeyError("No valid JWT token available on request.")
 
 
-def _parse_jwt_token(jwt_token):
+def parse_jwt_token(jwt_token):
     """
     Decode the encoded JWT token into the object.
 
